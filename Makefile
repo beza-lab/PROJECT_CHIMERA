@@ -21,3 +21,7 @@ spec-check: build
     # Example: verify specs directory exists and is non-empty
     docker run --rm -v $(PWD):/app $(IMAGE_NAME) \
         sh -c 'test -d specs && [ "$(ls -A specs)" ] && echo "Specs OK" || echo "Specs missing or empty"'
+
+# Fast local test without Docker
+local-test:
+    python -m unittest discover -s tests

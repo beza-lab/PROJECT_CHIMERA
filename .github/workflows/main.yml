@@ -9,27 +9,46 @@ on:
       - main
 
 jobs:
-  test:
-    name: Run TDD Tests
+  docker-tests:
+    name: Run TDD Tests in Docker
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout code
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Setup Docker
       - name: Set up Docker
         uses: docker/setup-buildx-action@v2
 
-      # Build Docker image
       - name: Build Docker image
         run: docker build -t chimera:ci .
 
-      # Run tests inside Docker
-      - name: Run tests
-        run: docker run --rm chimera:ci
+      - name: Run tests inside Docker
+        run: docker run --rm chimera:ci make test
 
-      # Optional: Linting or spec-check
+      - name: Spec alignment check
+        run: docker run --rm chimera:ci make spec-check
+
+  python-tests:
+    name: Run Unit Tests (Python)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run tests
+        run: python -m unittest discover -s tests
+
       - name: Spec alignment check
         run: make spec-check
