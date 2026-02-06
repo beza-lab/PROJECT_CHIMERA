@@ -1,0 +1,19 @@
+# Project Context
+This is Project Chimera, an autonomous influencer system.  
+Its purpose is to research trends, generate content, and manage engagement without human intervention.  
+All development must follow Spec-Driven Development (SDD).
+
+# Prime Directive
+NEVER generate code without checking specs/ first.  
+All implementation must trace back to ratified specifications in the `specs/` directory.
+
+# Traceability
+- Always explain your plan before writing code.  
+- Reference the relevant spec file (`functional.md`, `technical.md`, etc.) before implementation.  
+- Document reasoning in commit messages to show alignment with specs.
+
+# Additional Rules
+- Respect Git Hygiene: commit early, commit often, with meaningful messages.  
+- All tests must be written before implementation (TDD).  
+- Containerization and CI/CD must be maintained — no “works on my machine” shortcuts.  
+- Human-in-the-loop safety layer must be preserved for publishing content.  
